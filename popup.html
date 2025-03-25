@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Link Click Checker</title>
+  <style>
+    body {
+      width: 200px;
+      font-family: Arial, sans-serif;
+    }
+
+    h3 {
+      font-size: 16px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+
+    button {
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>Link Click Checker</h3>
+  <p>Quando clicar em links, a extensão irá exibir um aviso de segurança.</p>
+  <button id="open-settings">Abrir Configurações</button>
+
+  <script>
+    alert("CADE")
+    console.log('Popup carregado');
+    // Ação para abrir as configurações da extensão
+    document.getElementById('open-settings').addEventListener('click', function () {
+      console.log('Abrir configurações clicado');
+      chrome.runtime.openOptionsPage(); // Abre a página de configurações
+    });
+  </script>
+</body>
+
+</html>

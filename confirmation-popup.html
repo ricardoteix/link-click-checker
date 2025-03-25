@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação de Link</title>
+    <style>
+        /* Estilo do popup */
+        body {
+            font-family: Arial, sans-serif;
+            width: 450px;
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 18px;
+        }
+
+        p {
+            font-size: 14px;
+            margin: 10px 0;
+        }
+
+        .popup-button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .confirm-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .cancel-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #domain-name {
+            font-weight: bold; 
+            font-size: 24px;
+            filter: drop-shadow(3px 3px 2px orange);
+        }
+    </style>
+</head>
+<body>
+    <h2>Aviso de segurança</h2>
+    <p id="link-text">O link leva para: <span id="domain-name"></span></p>
+    <button id="confirm-btn" class="popup-button confirm-btn">Continuar</button>
+    <button id="cancel-btn" class="popup-button cancel-btn">Cancelar</button>
+
+    <script>
+        let confirmed = false;
+        let linkHref = '';
+
+        // Exibe o domínio do link no popup
+        function showLinkConfirmation(link) {
+            linkHref = link.href;
+            const domain = new URL(linkHref).hostname;
+            document.getElementById('domain-name').innerText = domain;
+
+            // Exibe o popup
+            document.body.style.display = 'block';
+        }
+
+        // Quando o usuário clica em "Confirmar"
+        document.getElementById('confirm-btn').addEventListener('click', function() {
+            confirmed = true;
+            window.location.href = linkHref;  // Redireciona para o link
+        });
+
+        // Quando o usuário clica em "Cancelar"
+        document.getElementById('cancel-btn').addEventListener('click', function() {
+            confirmed = false;
+            window.close();  // Fecha o popup
+        });
+
+        // Espera o evento de clique no link
+        window.addEventListener('message', function(event) {
+            if (event.data && event.data.action === 'showLinkConfirmation') {
+                showLinkConfirmation(event.data.link);
+            }
+        });
+    </script>
+</body>
+</html>
